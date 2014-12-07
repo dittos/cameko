@@ -1,0 +1,10 @@
+{
+  "name": "cameko",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "read-torrent": "^1.1.0",
+    "torrent-stream": "^0.16.2"
+  }
+}
