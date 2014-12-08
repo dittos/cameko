@@ -1,3 +1,4 @@
+var fs = require('fs');
 var spawn = require('child_process').spawn;
 var readTorrent = require('read-torrent');
 var torrentStream = require('torrent-stream');
@@ -13,12 +14,14 @@ readTorrent(process.argv[2], function(err, torrent) {
     engine.on('ready', function() {
         engine.files.forEach(function(file) {
             console.log('filename:', file.name);
+            fs.mkdirSync(file.name);
             var avconv = spawn('avconv', [
                 '-i', 'pipe:',
                 '-vsync', '0',
                 '-vf', "select='eq(pict_type\,I)'",
                 '-f', 'image2',
-                '%d.png'
+                '-q', '1',
+                file.name + '/%d.jpg'
             ], {
                 stdio: ['pipe', process.stdout, process.stderr]
             });
